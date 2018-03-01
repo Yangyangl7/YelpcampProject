@@ -1,0 +1,40 @@
+<% include ../partials/header %>
+
+<div class="container">
+    
+        <% if (error && error.length > 0) { %>
+        <div class="alert alert-danger" role="alert">
+            <%= error %>
+        </div>    
+        <% } %>
+        <% if (success && success.length > 0) { %>
+        <div class="alert alert-success" role="alert">
+            <%= success %>
+        </div>    
+        <% } %>
+    
+    <header class="jumbotron">
+        <h1>This is the campgrounds page</h1>
+        <p>View our all hand-picked campgrounds from all over the world</p>
+        <p>
+            <a class="btn btn-primary btn-lg" href="/">Back to landing page</a>
+            <a class="btn btn-primary btn-lg" href="/campgrounds/new">Add New Campground</a>
+        </p>
+    </header>
+    
+    <div class="row text-center" style="display:flex; flex-wrap:wrap;">
+        <% camps.forEach(function(camp){ %>
+            <div class="col-md-3 col-sm-6">
+                <div class="thumbnail">
+                    <img src="<%= camp.image %>">
+                    <div class="caption">
+                        <h4><%= camp.name %></h4>
+                        <a class="btn btn-primary" href="/campgrounds/<%= camp._id %>">More info </a>
+                    </div>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+
+</div>
+<% include ../partials/footer %>
