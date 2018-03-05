@@ -17,16 +17,20 @@ router.get("/", function(req, res) {
 });
 
 // Post operation, add a new camp to the db
+router.get("/new", middlewareObj.isLoggedIn, function(req, res) {
+    res.render("campgrounds/new"); 
+});
 
 router.post("/", middlewareObj.isLoggedIn, function(req, res) {
     var name = req.body.name;
     var img = req.body.image;
     var desc = req.body.desc;
+    var price = req.body.price;
     var author = {
         id:req.user._id,
         username:req.user.username
     };
-    var newCamp = {name:name, image:img, desc:desc, author:author};
+    var newCamp = {name:name, image:img, desc:desc, author:author, price:price};
     Campground.create(newCamp, function(err, newCamp){
         if(err){
             console.log(err);
@@ -37,10 +41,6 @@ router.post("/", middlewareObj.isLoggedIn, function(req, res) {
             res.redirect("/campgrounds");
         }
     });
-});
-
-router.get("/new", middlewareObj.isLoggedIn, function(req, res) {
-    res.render("campgrounds/new"); 
 });
 
 // the Show page
