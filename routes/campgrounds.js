@@ -11,7 +11,7 @@ router.get("/", function(req, res) {
             console.log(err);
             req.flash("error", "Failure to show camps.");
         } else{
-            res.render("campgrounds/index", {camps:allCamps});
+            res.render("campgrounds/index", {camps:allCamps, page:'campgrounds'});
         }
     });
 });
