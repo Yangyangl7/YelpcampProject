@@ -11,6 +11,7 @@ var Comment = require("./models/Comment");
 var User = require("./models/User");
 var seedDB = require("./seed");
 
+app.locals.moment = require('moment');
 //Routers Config
 
 var commentRoutes = require("./routes/comments");
