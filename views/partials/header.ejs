@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- support phones and tablets -->
       <meta name="viewport" content="width=device-width, initial-scale=1">
+      
       <title>YelpCamp</title>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-      <link rel="stylesheet" href="/stylesheets/main.css">
+      <link rel="stylesheet" href="/stylesheet/main.css">
     </head>
     <body>
     <nav class="navbar navbar-default">
@@ -18,12 +18,16 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                 </button>
+                
                 <a class="navbar-brand" href="/">Yelpcamp</a>
+            
             </div>
+            
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                   <li class="<%= typeof page !== 'undefined' && page === 'campgrounds' ? 'active' : '' %>"><a href="/campgrounds">Home</a></li>
                 </ul>
+                
                 <ul class="nav navbar-nav navbar-right">
                     <% if (!currentUser){ %>
                         <li class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>"><a href="/login">Login</a></li>
