@@ -2,6 +2,16 @@ var express = require("express");
 var router = express.Router();
 var Campground = require("../models/Campgrounds");
 var middlewareObj = require("../middleware");
+var NodeGeocoder = require('node-geocoder');
+
+var options = {
+  provider: 'google',
+  httpAdapter: 'https',
+  apiKey: process.env.GEOCODER_API_KEY,
+  formatter: null
+};
+ 
+var geocoder = NodeGeocoder(options);
 
 // Index page
 
@@ -30,17 +40,26 @@ router.post("/", middlewareObj.isLoggedIn, function(req, res) {
         id:req.user._id,
         username:req.user.username
     };
-    var newCamp = {name:name, image:img, desc:desc, author:author, price:price};
-    Campground.create(newCamp, function(err, newCamp){
-        if(err){
-            console.log(err);
-            req.flash("error", "Failure to create the camp.");
-            res.redirect("/campgrounds");
-        } else {
-            req.flash("success", "Success to create a new camp.");
-            res.redirect("/campgrounds");
+    geocoder.geocode(req.body.location, function (err, data) {
+        if (err || !data.length) {
+          req.flash('error', 'Invalid address');
+          return res.redirect('back');
         }
-    });
+        var lat = data[0].latitude;
+        var lng = data[0].longitude;
+        var location = data[0].formattedAddress;
+        var newCamp = {name:name, image:img, desc:desc, author:author, price:price, location:location, lat:lat, lng:lng};
+        Campground.create(newCamp, function(err, newCamp){
+            if(err){
+                console.log(err);
+                req.flash("error", "Failure to create the camp.");
+                res.redirect("/campgrounds");
+            } else {
+                req.flash("success", "Success to create a new camp.");
+                res.redirect("/campgrounds");
+            }
+        });
+    });    
 });
 
 // the Show page
@@ -71,15 +90,25 @@ router.get("/:id/edit", middlewareObj.checkCampOwnership, function(req, res) {
 });
 
 router.put("/:id", middlewareObj.checkCampOwnership, function(req, res) {
-    Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, editCamp) {
-        if(err) {
-            console.log(err);
-            req.flash("error", "Failure to edit the camp.");
-            res.redirect("/campgrounds");
-        } else {
-            req.flash("success", "Success to edit the camp.");
-            res.redirect("/campgrounds/" + req.params.id);
+    geocoder.geocode(req.body.location, function (err, data) {
+        if (err || !data.length) {
+          req.flash('error', 'Invalid address');
+          return res.redirect('back');
         }
+        var lat = data[0].latitude;
+        var lng = data[0].longitude;
+        var location = data[0].formattedAddress;
+        var newCamp = {name:req.body.name, image:req.body.image, desc:req.body.desc, price:req.body.price, location:location, lat:lat, lng:lng};
+        Campground.findByIdAndUpdate(req.params.id, newCamp, function(err, editCamp) {
+            if(err) {
+                console.log(err);
+                req.flash("error", "Failure to edit the camp.");
+                res.redirect("/campgrounds");
+            } else {
+                req.flash("success", "Success to edit the camp.");
+                res.redirect("/campgrounds/" + req.params.id);
+            }
+        });
     });
 });
 

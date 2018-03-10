@@ -5,6 +5,9 @@ var campgroundSchema = new mongoose.Schema({
     price:String,
     image:String,
     desc:String,
+    location:String,
+    lat:Number,
+    lng:Number,
     posts:[
         {
             type:mongoose.Schema.Types.ObjectId,

@@ -5,16 +5,24 @@
         <div style="width:30%; margin:20px auto;">
             <form action="/campgrounds/<%= camps._id %>?_method=PUT" method="POST">
                 <div class="form-group">
-                    <input class="form-control" type="text" name="campground[name]" placeholder="image name" value="<%= camps.name %>"></input>     
+                     <label for="Name">Name</label>
+                    <input class="form-control" type="text" name="name" id="Name" placeholder="image name" value="<%= camps.name %>"></input>     
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="number" name="campground[price]" placeholder="price" min="0.00" step="0.01" value="<%= camps.price %>"></input>     
+                    <label for="Price">Price</label>
+                    <input class="form-control" type="number" name="price" id="Price" placeholder="price" min="0.00" step="0.01" value="<%= camps.price %>"></input>     
                 </div>
                 <div class="form-group">
-                <input class="form-control" type="text" name="campground[image]" placeholder="image url" value="<%= camps.image %>"></input>
+                    <label for="lmage">Image Url</label>
+                    <input class="form-control" type="text" name="image" id="Image" placeholder="image url" value="<%= camps.image %>"></input>
                 </div>
-                 <div class="form-group">
-                    <input class="form-control" type="text" name="campground[desc]" placeholder="description" value="<%= camps.desc %>"></input>     
+                <div class="form-group">
+                    <label for="Location">Location</label>
+                    <input class="form-control" type="text" name="location" id="Location" value="<%= camps.location %>">
+                </div>
+                <div class="form-group">
+                    <label for="Desc">Description</label>
+                    <input class="form-control" type="text" name="desc" id="Desc" placeholder="description" value="<%= camps.desc %>"></input>     
                 </div>
                 <div class="form-group">
                 <button class="btn btn-lg btn-primary btn-block">Submit!</button>

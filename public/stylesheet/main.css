@@ -11,5 +11,10 @@
 }
 
 .delete-form {
-    display: inline;
+    display: inline-block;
+}
+
+#map {
+    height: 400px;
+    width: 100%;
 }

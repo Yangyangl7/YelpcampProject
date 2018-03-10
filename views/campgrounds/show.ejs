@@ -12,12 +12,13 @@
     <% } %>
     <div class="row">
         <div class="col-md-3">
-            <div class="lead">YelpCamp</div>
-            <div class="list-group">
-                <li class="list-group-item active">Info 1</>
-                <li class="list-group-item">Info 2</>
-                <li class="list-group-item">Info 3</>
-            </div>
+          <p class="lead">YelpCamp</p>
+          <div class="list-group">
+            <li class="list-group-item active">Info 1</li>
+            <li class="list-group-item">Info 2</li>
+            <li class="list-group-item">Info 3</li>
+          </div>
+          <div id="map"></div>
         </div>
         <div class="col-md-9">
             <div class="thumbnail">
@@ -32,11 +33,12 @@
                         </em>
                     </p>
                     <% if (currentUser && camps.author.id.equals(currentUser._id)) { %>
-                    <a class="btn btn-warning" href="/campgrounds/<%= camps._id %>/edit">Edit</a>
-                    <form class="delete-form"action="/campgrounds/<%= camps._id %>?_method=delete" method="POST">
-                        <button class="btn btn-danger">Delete</button>
-                    </form>
+                            <a class="btn btn-xs btn-warning" href="/campgrounds/<%= camps._id %>/edit">Edit</a>
+                            <form class="delete-form"action="/campgrounds/<%= camps._id %>?_method=delete" method="POST">
+                                <button class="btn btn-xs btn-danger">Delete</button>
+                            </form>
                     <% } %>
+                    <hr>
                 </div>
             </div>
             <div class="well">
@@ -66,4 +68,35 @@
     </div>
 </div>
 
+<!-- Google Map API script -->
+<script>
+  function initMap() {
+    var lat = <%= camps.lat %>;
+    var lng = <%= camps.lng %>;
+    var center = {lat: lat, lng: lng };
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 8,
+        center: center,
+        scrollwheel: false
+    });
+    var contentString = `
+      <strong><%= camps.name %><br />
+      <%= camps.location %></strong>
+      <p><%= camps.desc %></p>
+    `
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+    var marker = new google.maps.Marker({
+        position: center,
+        map: map
+    });
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
+  }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlJcQ-CNDvbkiFQP_vlGpUex2V29OhbXM&callback=initMap"></script>
+
 <% include ../partials/footer %>
+
