@@ -32,7 +32,7 @@
                             Submitted by <%= camps.author.username %>, <%= moment(camps.timeCreated).fromNow() %>
                         </em>
                     </p>
-                    <% if (currentUser && camps.author.id.equals(currentUser._id)) { %>
+                    <% if (currentUser && camps.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
                             <a class="btn btn-xs btn-warning" href="/campgrounds/<%= camps._id %>/edit">Edit</a>
                             <form class="delete-form"action="/campgrounds/<%= camps._id %>?_method=delete" method="POST">
                                 <button class="btn btn-xs btn-danger">Delete</button>
@@ -54,7 +54,7 @@
                         <p>
                             <%= comment.content %>
                         </p>
-                         <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
+                         <% if (currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
                         <a class="btn btn-xs btn-warning" href="/campgrounds/<%= camps._id %>/comment/<%= comment._id %>/edit">Edit</a>
                         <form class="delete-form" action="/campgrounds/<%= camps._id%>/comment/<%= comment._id%>?_method=delete" method="POST">
                             <button class="btn btn-xs btn-danger">Delete</button>

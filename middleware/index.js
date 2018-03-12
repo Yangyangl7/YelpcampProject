@@ -10,7 +10,7 @@ var middlewareObj = {
                     req.flash("error", "Cannot find the comment.");
                     res.redirect("back");
                 } else {
-                    if(findComment.author.id.equals(req.user._id)) {
+                    if(findComment.author.id.equals(req.user._id) || req.user.isAdmin) {
                          next();
                     } else {
                         req.flash("error", "You do not have the permission to do that.");
@@ -31,7 +31,7 @@ var middlewareObj = {
                     req.flash("error", "Cannot find the camp.");
                     res.redirect("back");
                 } else { 
-                    if(findCamp.author.id.equals(req.user._id)) {
+                    if(findCamp.author.id.equals(req.user._id) || req.user.isAdmin) {
                         return next();
                     } else {
                         req.flash("error", "You do not have the permission to do that.");

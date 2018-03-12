@@ -21,6 +21,9 @@ router.get("/register", function(req, res) {
 
 router.post("/register", function(req, res) {
     var newUser = new User({username: req.body.username});
+    if (req.body.adminCode === "adminCode0725") {
+        newUser.isAdmin = true;
+    }
     User.register(newUser, req.body.password, function(err, user){
         if (err){
             console.log(err);
@@ -28,8 +31,13 @@ router.post("/register", function(req, res) {
             return res.redirect("/register");
         }
         passport.authenticate("local")(req, res, function(){
-            req.flash("success", "Welcome to Yelpcamp " + user.username);
-            res.redirect("/campgrounds");   
+            if (req.user.isAdmin) {
+                req.flash("success", "Welcome to Yelpcamp administer: " + user.username);
+                res.redirect("/campgrounds");
+            } else {
+                req.flash("success", "Welcome to Yelpcamp " + user.username);
+                res.redirect("/campgrounds");   
+            }
         });
     });
 });
