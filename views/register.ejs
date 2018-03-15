@@ -14,37 +14,43 @@
 </div>
 
 <div class="container">
-    <div style="width:30%; margin:20px auto;">
+    <div style="width:50%; margin:20px auto;">
         <h1 style="text-align:center">Sign Up</h1>
     
         <form action="/register" method="POST">
-            <div class="form-group">
-                <label for="Username">Username</label>
-                <input class="form-control" type="text" name="username" id="Username" placeholder="username"></input>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="Username">Username</label>
+                    <input class="form-control" type="text" name="username" id="Username" placeholder="mandatory"></input>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="Password">Password</label>
+                    <input class="form-control" type="password" name="password" id="Password" placeholder="mandatory"></input>
+                </div>
             </div>
-             <div class="form-group">
-                <label for="Password">Password</label>
-                <input class="form-control" type="password" name="password" id="Password" placeholder="password"></input>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="First">First Name</label>
+                    <input class="form-control" type="text" name="firstname" id="First" placeholder="optional"></input>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="Last">Last Name</label>
+                    <input class="form-control" type="text" name="lastname" id="Last" placeholder="optional"></input>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="First">First Name</label>
-                <input class="form-control" type="text" name="firstname" id="First" placeholder="first Name"></input>
-            </div>
-            <div class="form-group">
-                <label for="Last">Last Name</label>
-                <input class="form-control" type="text" name="lastname" id="Last" placeholder="last Name"></input>
-            </div>
-            <div class="form-group">
-                <label for="Email">Email</label>
-                <input class="form-control" type="text" name="email" id="Email" placeholder="email address"></input>
-            </div>
-            <div class="form-group">
-                <label for="Avator">Avator Url</label>
-                <input class="form-control" type="text" name="avator" id="Avator" placeholder="avator url"></input>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="Email">Email</label>
+                    <input class="form-control" type="text" name="email" id="Email" placeholder="optional"></input>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="Avator">Avator Url</label>
+                    <input class="form-control" type="text" name="avator" id="Avator" placeholder="optional"></input>
+                </div>
             </div>
             <div class="form-group">
                 <label for="Bio">Bio</label>
-                <input class="form-control" type="text" name="bio" id="Bio" placeholder="Briefly introduce youself."></input>
+                <textarea class="form-control" type="text" name="bio" id="Bio" placeholder="Briefly Introduce yourself, also optional" rows="3"></textarea>
             </div>
             <div class="form-group">
                 <label for="AdminCode">Admin Code</label>
