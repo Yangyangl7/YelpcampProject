@@ -29,7 +29,7 @@
                     <p><%= camps.desc %></p>
                     <p>
                         <em>
-                            Submitted by <%= camps.author.username %>, <%= moment(camps.timeCreated).fromNow() %>
+                            Submitted by <a href="/users/<%= camps.author.id %>"><%= camps.author.username %></a>, <%= moment(camps.timeCreated).fromNow() %>
                         </em>
                     </p>
                     <% if (currentUser && camps.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
